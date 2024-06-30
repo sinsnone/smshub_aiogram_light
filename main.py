@@ -5,12 +5,9 @@ from aiohttp import web
 from aiogram import executor
 from telegram.bot import dp
 
-
 # Configure the logger
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-
 
 # HTTP server handle function
 async def handle(request):
@@ -29,11 +26,11 @@ async def init_web_server():
 async def main():
     # Start aiohttp web server
     await init_web_server()
-
     # Start the Telegram bot in the background
     await executor.start_polling(dp, skip_updates=True)
 
 if __name__ == '__main__':
-    # Run the main function using asyncio.run
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.run_forever()
 
