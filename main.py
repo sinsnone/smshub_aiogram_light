@@ -1,32 +1,35 @@
 import logging
-import sys
+import asyncio
 
 from aiohttp import web
 from aiogram import executor
 from telegram.bot import dp
-from asyncio import create_task
 
 # Configure the logger
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Create a logger instance
 logger = logging.getLogger(__name__)
 
-# إعداد خادم HTTP بسيط
+# HTTP server handle function
 async def handle(request):
     return web.Response(text="Bot is running")
 
+# Initialize the aiohttp web server
 async def init_web_server():
-    server = web.Application()
-    server.router.add_get('/', handle)
-    runner = web.AppRunner(server)
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, '0.0.0.0', 8080)
     await site.start()
 
+# Main function to start the bot and web server
 async def main():
+    # Start aiohttp web server
     await init_web_server()
-    executor.start_polling(dp, skip_updates=True)
-    
+
+    # Start the Telegram bot
+    await executor.start_polling(dp, skip_updates=True)
+
 if __name__ == '__main__':
-    create_task(main())
+    # Run the main function using asyncio.run
+    asyncio.run(main())
