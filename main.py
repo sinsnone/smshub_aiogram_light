@@ -31,7 +31,7 @@ async def main():
     await init_web_server()
 
     # Start the Telegram bot in the background
-    await start_polling(dp, skip_updates=True)
+    await executor.start_polling(dp, skip_updates=True)
 
 if __name__ == '__main__':
     # Run the main function using asyncio.run
