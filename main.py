@@ -4,8 +4,7 @@ import sys
 from aiohttp import web
 from aiogram import executor
 from telegram.bot import dp
-import DRGLIB
-
+from asyncio import create_task
 
 # Configure the logger
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -30,4 +29,4 @@ async def main():
     executor.start_polling(dp, skip_updates=True)
     
 if __name__ == '__main__':
-    DRGLIB.client.loop.run_until_complete(main())
+    create_task(main())
