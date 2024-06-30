@@ -1,6 +1,6 @@
 import logging
 import asyncio
-
+import os
 from aiohttp import web
 from aiogram import executor
 from telegram.bot import dp
@@ -24,10 +24,8 @@ async def init_web_server():
 
 # Main function to start the bot and web server
 async def main():
-    # Start aiohttp web server
     await init_web_server()
-    # Start the Telegram bot in the background
-    executor.start_polling(dp, skip_updates=True)
+    os.system(f'python3 test.py')
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
