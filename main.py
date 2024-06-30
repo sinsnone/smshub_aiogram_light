@@ -27,7 +27,7 @@ async def main():
     # Start aiohttp web server
     await init_web_server()
     # Start the Telegram bot in the background
-    await executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dp, skip_updates=True)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
